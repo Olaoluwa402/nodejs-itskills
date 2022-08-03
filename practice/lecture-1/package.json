@@ -1,0 +1,21 @@
+{
+  "name": "lecture-1",
+  "version": "1.0.0",
+  "description": "learning node",
+  "type":"module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "node",
+    "module",
+    "express",
+    "mongodb",
+    "sql",
+    "mongoose"
+  ],
+  "author": "Olaoluwa",
+  "license": "MIT"
+}
