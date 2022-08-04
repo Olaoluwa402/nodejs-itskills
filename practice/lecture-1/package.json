@@ -2,11 +2,12 @@
   "name": "lecture-1",
   "version": "1.0.0",
   "description": "learning node",
-  "type":"module",
-  "main": "server.js",
+  "type": "module",
+  "main": "server.js", 
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev":"nodemon server.js"
   },
   "keywords": [
     "node",
@@ -17,5 +18,11 @@
     "mongoose"
   ],
   "author": "Olaoluwa",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
 }
