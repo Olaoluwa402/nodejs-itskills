@@ -1,0 +1,2 @@
+this is for write file fs module asynchronous nenw nnghghgThis should go to the next line
+ This should go to the next line new line 
