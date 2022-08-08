@@ -1,6 +1,8 @@
 import http from 'http';
 import fs from 'fs';
+import {readText} from './customReadFile.js'
 
+ 
 // const d = async()=>{
 //      try{ 
 //         const user = await User.findById({_id:123})
@@ -109,6 +111,8 @@ const server = http.createServer((req, res)=> {
             }
             res.end('successfully deleted')
         })
+
+
      }
 
           //  unlink synchronous
@@ -118,6 +122,46 @@ const server = http.createServer((req, res)=> {
             fs.unlinkSync('copy.txt')
 
             res.end('successfully deleted')
+         }
+
+         if(req.url === '/asyncpromise'){
+            // res.writeHead(200, {"Content-Type":"plain/text"})
+            // async Await self involkin function
+            (async()=>{
+            try{
+                const result = await readText('message.txt')
+                const data = await readText('copy.txt')
+                const raw = {
+                    result,
+                    data
+                }
+                res.end(JSON.stringify(raw))
+            }catch(err){
+                // res.writeHead(404, {"Content-Type":"plain/text"})
+               console.log(err)
+               res.end(err)
+            }
+           })()
+
+            // promise
+            // const result = readText('message.txt')
+            // result
+            // .then((res) => res)
+            // .then((data)=> {
+            //     res.writeHead(200, {"Content-Type":"plain/text"})
+            //     console.log(data)
+            //     if(data){
+            //         res.end(data)
+            //     }
+            // }
+            // ).catch((err)=> {
+            //     res.writeHead(404, {"Content-Type":"plain/text"})
+            //     console.log('err', err)
+            //     if(err){
+            //         res.end('something went wrong')
+            //     }
+            // })
+            
          }
 })
 
