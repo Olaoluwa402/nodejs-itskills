@@ -127,7 +127,7 @@ const server = http.createServer((req, res)=> {
          if(req.url === '/asyncpromise'){
             // res.writeHead(200, {"Content-Type":"plain/text"})
             // async Await self involkin function
-            (async()=>{
+            (async()=>{ 
             try{
                 const result = await readText('message.txt')
                 const data = await readText('copy.txt')
