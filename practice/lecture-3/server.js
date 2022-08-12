@@ -1,5 +1,9 @@
 import http from 'http'
 import { result, anw, fileSearch, htmlSearch, validateEmail, validateHexa, validatePassword  } from './regex/create-regex.js'
+import { print } from './console/customConsole.js'
+// import './console/console-count.js'
+// import './console/console-countreset.js'
+import './console/console-warn.js'
 
 const server = http.createServer((req, res)=> {
 
@@ -21,15 +25,19 @@ const server = http.createServer((req, res)=> {
             validateHexa,
             validatePassword : validatePassword  ? 'valid password': 'invalid password'
         }
+        print.log(JSON.stringify(data))
         res.write(JSON.stringify(data))
         res.end()
     }
 })
 
 
-
 server.listen(8000, (err)=> {
-    if(err) console.log(err)
-
-    console.log('Server is running')
+    if(err) {
+        console.log('there is an error')
+        print.error('there is an error')
+        return
+    }
+    console.log('Server is running ' + new Date().toLocaleDateString())
+    print.log('Server is running ' + new Date().toLocaleDateString())
 })
