@@ -1,8 +1,7 @@
 import http from 'http'
 import { result, anw, fileSearch, htmlSearch, validateEmail, validateHexa, validatePassword  } from './regex/create-regex.js'
 import { print } from './console/customConsole.js'
-
-import './ArrayMethods/reduce.js'
+import './Crypto/publicKey.js'
 
 const server = http.createServer((req, res)=> {
 
