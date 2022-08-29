@@ -5,7 +5,7 @@ import {getPosts, createPost, getSinglePost,updatePost,deletePost } from '../con
 router.route('/').get(getPosts).post(createPost);
 //get post
 router.route('/:id')
-    .get(getSinglePost )
+    .get(getSinglePost) 
     .put(updatePost)
     .delete(deletePost);
 
