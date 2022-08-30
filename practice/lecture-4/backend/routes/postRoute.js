@@ -1,6 +1,8 @@
 import express from "express";
 const router = express.Router();
 import {getPosts, createPost, getSinglePost,updatePost,deletePost } from '../controllers/postController.js'
+import {protect} from '../middleware/auth.js'
+
 
 router.route('/').get(getPosts).post(createPost);
 //get post
