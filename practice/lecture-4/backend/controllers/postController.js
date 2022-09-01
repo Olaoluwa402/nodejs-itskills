@@ -22,12 +22,12 @@ const getPosts = async(req,res)=>{
 const createPost = async(req,res)=>{
     const {userId,title,id,body} = req.body
     console.log(userId,title,id,body)
-
+ 
     res.status(200).json({
         post:{
             userId,
             id,
-            title,
+            title, 
             body
         }
     })

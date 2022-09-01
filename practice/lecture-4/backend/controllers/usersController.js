@@ -23,7 +23,7 @@ const createUser= async(req,res) => {
          }
         //create use
         const user = await User.create({
-            email,
+            email, 
             password
         })
 
@@ -58,21 +58,21 @@ const loginUser = async(req,res) => {
          }
 
          if(user && (await user.passwordMatched(password))){
-            res.status(200).json({
+            res.status(201).json({
                 status:'success',
                 user:{
-                    _id:user._id,
+                    _id:user._id, 
                     email:user.email,
                     token: await generateToken(user._id)
                 }
             })
          }else{
-            res.status(402)
+            res.status(400)
             throw new Error('incorrect password')
          }
   }catch(err){
         console.log(err)
-        res.status(401).json({
+        res.status(400).json({
             status:'failed',
             error:err.message
         })
