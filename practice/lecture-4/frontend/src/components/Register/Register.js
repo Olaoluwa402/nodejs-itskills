@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
 import Input from '../Input/Input'
 import InputLabel from '../Input/InputLabel'
 import styles from './Register.module.css'
 import Button from '../Button/Button'
+import { createUserAction } from '../../redux/actions/userActions'
 
 const Register = () => {
+    const dispatch = useDispatch()
     const [state, setState] = useState({
         email:'',
         password:''
@@ -23,9 +26,27 @@ const Register = () => {
         //         }
         // })
     }
+
+    const submitHandler = (e)=>{
+        console.log('hit')
+            e.preventDefault();
+
+            if(!state.email || ! state.password){
+                alert('Provide email and password')
+                return
+            }
+
+            dispatch(createUserAction(state.email, state.password))
+
+            setState({
+                email:'',
+                password:''
+            })
+
+    }
   return (
     <div  className= {styles.formWrapper}>
-        <form  className= {styles.form}>
+        <form className= {styles.form}>
             <div className= {styles.inputGroup}>
                 <InputLabel title='Email'/>
                 <Input 
@@ -56,7 +77,9 @@ const Register = () => {
                 <Button text='Submit' style={{
                     backgroundColor:'black',
                     color:'white',
-                }}/>
+                }}
+                onClick={submitHandler}
+                />
             </div>
         </form>
     </div>

@@ -1,5 +1,6 @@
 import User from "../models/UserModel.js"
 import generateToken from '../utils/generateToken.js'
+import asyncHandler from 'express-async-handler';
 
 //@desc : get all user
 //route: GET /api/v1/users
@@ -47,7 +48,7 @@ const createUser= async(req,res) => {
 //@desc : login user
 //route: POST /api/v1/users/login
 //access: public 
-const loginUser = async(req,res) => {
+const loginUser = asyncHandler(async(req,res, next) => {
     const {email, password} = req.body
   try{
          //check that email exist
@@ -71,14 +72,13 @@ const loginUser = async(req,res) => {
             throw new Error('incorrect password')
          }
   }catch(err){
-        console.log(err)
-        res.status(400).json({
-            status:'failed',
-            error:err.message
+        console.log(err.message)
+        res.json({
+            message:err.message
         })
   }
 
-}
+})
 
 export {
     getUsers,

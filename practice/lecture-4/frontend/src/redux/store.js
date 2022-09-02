@@ -12,8 +12,17 @@ if(process.env.NODE_ENV === 'development'){
 }else{
     devTools = applyMiddleware(...middleware)
 }
+ 
 
+const userInfoFromLocalStorage = localStorage.getItem('userInfo') ?  JSON.parse(localStorage.getItem('userInfo')) : null
+console.log(userInfoFromLocalStorage)
 
-const store = createStore(rootReducer, devTools)
+const initialState = {
+    userLogin: {userInfo: userInfoFromLocalStorage}
+}
+
+const store = createStore(rootReducer,initialState , devTools)
+
+console.log(store)
 
 export default store

@@ -1,15 +1,36 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 import Input from '../Input/Input'
 import InputLabel from '../Input/InputLabel'
 import styles from '../Register/Register.module.css'
 import Button from '../Button/Button'
+import { useDispatch , useSelector, } from 'react-redux'
+import { loginUserAction } from '../../redux/actions/userActions'
+import Spinner from '../Spinner/Spinner'
+import Message from '../Message/Message'
+import { CREATE_USER_RESET, LOGIN_USER_RESET } from '../../redux/constants/userConstants'
+
 
 const Login = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const store = useSelector((state)=> state.loginUser)
+    const {loading, success, error, user} = store;
+
     const [state, setState] = useState({
         email:'',
         password:''
     })
 
+    useEffect(()=> {
+        if(success){ 
+            navigate('/')
+            dispatch({
+                type:LOGIN_USER_RESET
+            })
+        }
+    },[dispatch,success, navigate])
+ 
     const changeHandler = (e) => {
         const {name, value} = e.target
         setState({
@@ -23,6 +44,25 @@ const Login = () => {
         //         }
         // })
     }
+
+    const submitHandler = (e)=>{
+        console.log('hit')
+            e.preventDefault();
+
+            if(!state.email || ! state.password){
+                alert('Provide email and password')
+                return
+            }
+
+            dispatch(loginUserAction(state.email, state.password))
+
+            setState({
+                email:'',
+                password:''
+            })
+
+    }
+
   return (
     <div  className= {styles.formWrapper}>
         <form  className= {styles.form}>
@@ -44,19 +84,21 @@ const Login = () => {
                 <Input 
                 inputProperties={{
                         type:'password',
-                        name:'password',
+                        name:'password', 
                         placeholder:'Password',
                         value:state.password,
                         onChange: changeHandler 
                 }}
             />
             </div>
-
+            {error && (<Message message='dangerMessage'>{error}</Message>)}
             <div className="action">
-                <Button text='Login' style={{
+                {loading ? (<Spinner />) :  <Button text='Login' style={{
                     backgroundColor:'black',
                     color:'white',
-                }}/>
+                }}
+                onClick={submitHandler}
+                />}
             </div>
         </form>
     </div>

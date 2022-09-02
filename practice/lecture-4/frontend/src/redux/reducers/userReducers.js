@@ -12,12 +12,12 @@ import {
 // const initialState = {
 //     user:{}
 // }
-const createUserReducer = (state=null, action) => {
+const createUserReducer = (state={}, action) => {
      switch(action.type){
         case CREATE_USER_REQUEST:
             return {loading:true}
         case CREATE_USER_SUCCESS:
-            return {loading:false,success:true,user:action.paylaod}
+            return {loading:false,success:true,user:action.payload}
         case CREATE_USER_Fail:
             return {loading:false, error:action.payload}
         case CREATE_USER_RESET:
@@ -27,12 +27,12 @@ const createUserReducer = (state=null, action) => {
      }
 }
 
-const loginUserReducer = (state=null, action) => {
+const loginUserReducer = (state={}, action) => {
     switch(action.type){
        case LOGIN_USER_REQUEST:
            return {loading:true}
        case LOGIN_USER_SUCCESS:
-           return {loading:false,success:true,user:action.paylaod}
+           return {loading:false,success:true,user:action.payload}
        case LOGIN_USER_Fail:
            return {loading:false, error:action.payload}
        case LOGIN_USER_RESET:
