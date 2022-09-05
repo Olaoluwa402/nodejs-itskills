@@ -1,8 +1,8 @@
 .defaultMessage,
 .dangerMessage {
-	width: 100%;
+	width: 250px;
 	/* max-width: 500px; */
-	height: 80px;
+	height: auto;
 	margin: 0 auto;
 	padding: 1.2rem 0.8rem;
 	border: 2px solid #0fc;

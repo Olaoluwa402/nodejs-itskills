@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
 import Input from '../Input/Input'
 import InputLabel from '../Input/InputLabel'
 import styles from '../Register/Register.module.css'
@@ -100,7 +100,10 @@ const Login = () => {
                 onClick={submitHandler}
                 />}
             </div>
+
+            <p><Link to='/register'>Not register?</Link></p>
         </form>
+        
     </div>
   )
 }

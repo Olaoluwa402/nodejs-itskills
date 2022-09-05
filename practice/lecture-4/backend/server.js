@@ -7,6 +7,7 @@ import morgan from 'morgan';
 const app = express()
 import PostRoute from './routes/postRoute.js'
 import UserRoute from './routes/usersRoute.js'
+import GeneralRoute from './routes/generalRoute.js'
 import {connectDB} from './config/db.js'
 import colors from 'colors'
 
@@ -17,6 +18,7 @@ app.use(morgan('dev'))
 
 app.use('/api/v1/posts', PostRoute)
 app.use('/api/v1/users', UserRoute)
+app.use('/api/v1/general', GeneralRoute)
 //middleware
 // req => middleware => res
 //three type of middleware 1. custome middleware 2. library 3. inbuilt
@@ -30,8 +32,17 @@ app.get('/',(req,res)=> {
 
 
 //page not found
-app.all('*', (req,res)=>{
-    res.send("<h2>Page Not Found  <a href='/'>Return Home</a></h2>")
+app.all('*', async(req,res)=>{
+    try{
+
+        res.status(404)
+         throw new Error('Sorry, no endpoint found')
+    }catch(err){
+       res.status(404).json({
+        status:'error',
+        message:err.message
+       })
+    }
 })
 
 const start = async(port) => {

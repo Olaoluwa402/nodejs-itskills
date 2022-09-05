@@ -27,12 +27,15 @@ const createUserReducer = (state={}, action) => {
      }
 }
 
-const loginUserReducer = (state={}, action) => {
+const userInfoFromLocalStorage = localStorage.getItem('userInfo') ?  JSON.parse(localStorage.getItem('userInfo')) : null
+console.log(userInfoFromLocalStorage)
+
+const loginUserReducer = (state={userInfo:userInfoFromLocalStorage}, action) => {
     switch(action.type){
        case LOGIN_USER_REQUEST:
            return {loading:true}
        case LOGIN_USER_SUCCESS:
-           return {loading:false,success:true,user:action.payload}
+           return {loading:false,success:true,userInfo:action.payload}
        case LOGIN_USER_Fail:
            return {loading:false, error:action.payload}
        case LOGIN_USER_RESET:

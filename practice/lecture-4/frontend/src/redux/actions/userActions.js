@@ -31,9 +31,10 @@ const createUserAction = (email, password) => async(dispatch) => {
             payload:data.user
          })
     }catch(err){ 
+        let message = err.response && err.response.data.message ? err.response.data.message : err.message
         dispatch({
             type:CREATE_USER_Fail,
-            payload:err.message
+            payload:message
         })
     }
      
@@ -61,10 +62,11 @@ const loginUserAction = (email, password) => async(dispatch) => {
 
          localStorage.setItem('userInfo', JSON.stringify(data.user))
     }catch(err){ 
-        console.log('error',err)
+
+        let message = err.response && err.response.data.message ? err.response.data.message : err.message
         dispatch({
             type:LOGIN_USER_Fail,
-            payload:err.message
+            payload:message
         })
     }
      

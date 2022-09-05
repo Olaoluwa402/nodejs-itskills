@@ -1,17 +1,26 @@
 import React, {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
+import {useNavigate, Link} from 'react-router-dom'
 import Input from '../Input/Input'
 import InputLabel from '../Input/InputLabel'
 import styles from './Register.module.css'
 import Button from '../Button/Button'
 import { createUserAction } from '../../redux/actions/userActions'
+import Spinner from '../Spinner/Spinner'
+import Message from '../Message/Message'
+import Modal from '../Modal/Modal'
 
 const Register = () => {
     const dispatch = useDispatch()
-    const [state, setState] = useState({
+
+    const [state, setState] = useState({ 
         email:'',
         password:''
     })
+
+
+    //subscribe to store
+    const {loading, success, error, user}= useSelector((state)=> state.createUser)
 
     const changeHandler = (e) => {
         const {name, value} = e.target
@@ -73,15 +82,26 @@ const Register = () => {
             />
             </div>
 
+            {error && <Message message='dangerMessage'>{error}</Message>}
+
             <div className="action">
-                <Button text='Submit' style={{
+                {loading ? (<Spinner />) : (<Button text='Submit' style={{
                     backgroundColor:'black',
                     color:'white',
                 }}
                 onClick={submitHandler}
-                />
+                />)}
+                
             </div>
+
+            <p><Link to='/login'>Login</Link></p>
         </form>
+        
+        {success && (<Modal title='Registration successful'>
+                <div className="successfulReg">
+                    <p>Thank you for registering <b><Link to='/login'>Login</Link></b></p>
+                </div>
+        </Modal>)}
     </div>
   )
 }
