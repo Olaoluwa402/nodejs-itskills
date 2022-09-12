@@ -4,7 +4,7 @@ import {getPosts, createPost, getSinglePost,updatePost,deletePost } from '../con
 import {protect} from '../middleware/auth.js'
 
 
-router.route('/').get(getPosts).post(createPost);
+router.route('/').get(getPosts).post(protect,createPost);
 //get post
 router.route('/:id')
     .get(getSinglePost) 
@@ -16,5 +16,6 @@ router.route('/:id')
 // router.get('/', (req,res){
     
 // })
+
 
 export default router

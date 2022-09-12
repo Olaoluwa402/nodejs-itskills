@@ -6,7 +6,8 @@ import {
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_Fail,
-    LOGIN_USER_RESET
+    LOGIN_USER_RESET,
+    LOGOUT_USER
 } from '../constants/userConstants.js'
 
 // const initialState = {
@@ -30,7 +31,7 @@ const createUserReducer = (state={}, action) => {
 const userInfoFromLocalStorage = localStorage.getItem('userInfo') ?  JSON.parse(localStorage.getItem('userInfo')) : null
 console.log(userInfoFromLocalStorage)
 
-const loginUserReducer = (state={userInfo:userInfoFromLocalStorage}, action) => {
+const loginUserReducer = (state={loginUser:{userInfo:userInfoFromLocalStorage}}, action) => {
     switch(action.type){
        case LOGIN_USER_REQUEST:
            return {loading:true}
@@ -40,6 +41,10 @@ const loginUserReducer = (state={userInfo:userInfoFromLocalStorage}, action) => 
            return {loading:false, error:action.payload}
        case LOGIN_USER_RESET:
            return {}
+        case LOGOUT_USER:
+            return {
+                userInfo:{}
+            }
        default:
            return state
     }

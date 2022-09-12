@@ -1,35 +1,47 @@
-import {posts} from '../data.js'
+import Post from "../models/PostModel.js";
 //get posts
 const getPosts = async(req,res)=>{
-    const {title, userId} = req.query;
-    const copy = [...posts]
-   
-    let searchResult = copy;
- 
-    if(title){
-        searchResult = searchResult .filter((item)=> item.title.startsWith(title))
-    }
 
-    if(userId){
-        searchResult = searchResult .filter((item)=> item.userId.toString() === userId)
+    try{
+        const {title, userId} = req.query;
+        const copy = await Post.find({}).sort({_id:-1})
+    
+        let searchResult = copy;
+    
+        if(title){
+            searchResult = searchResult.filter((item)=> item.title.startsWith(title))
+        }
+
+        if(userId){
+            searchResult = searchResult.filter((item)=> item.userId.toString() === userId)
+        }
+        res.status(200).json({
+            posts:searchResult
+        })
+    }catch(err){
+        res.status(400).json({
+            status:'error',
+            message:err.message
+        })
     }
-    res.status(200).json({
-        posts:searchResult
-    })
+    
 }
 
 //creaate post
 const createPost = async(req,res)=>{
-    const {userId,title,id,body} = req.body
-    console.log(userId,title,id,body)
- 
+    const {title,body, image} = req.body
+    console.log(title,body,image)
+  
+   //save to database
+   const post = await Post.create({
+      author:req.user._id,
+      title,
+      body,
+      image,
+   })
+
     res.status(200).json({
-        post:{
-            userId,
-            id,
-            title, 
-            body
-        }
+        post:post
     })
 }
 

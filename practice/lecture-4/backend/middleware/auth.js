@@ -5,7 +5,8 @@ const protect = async (req,res,next)=> {
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         token = req.headers.authorization.split(' ')[1];
-        try{
+        console.log(token)
+        try{ 
             const decoded = await JWT.verify(token, process.env.JWTSECRET)
             console.log('decoded',decoded.id)
             const user = await User.findById(decoded.id).select("-password")

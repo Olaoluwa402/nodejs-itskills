@@ -5,13 +5,19 @@ import {
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_Fail,
+    LOGOUT_USER
 } from '../constants/userConstants.js'
 
 import axios from 'axios'
 
 const baseUrl = 'http://localhost:5000'
 
-const createUserAction = (email, password) => async(dispatch) => {
+const logout = () => (dispatch)=> {
+    localStorage.removeItem('userInfo');
+    dispatch({type:LOGOUT_USER})
+}
+
+const createUserAction = (email, password) => async(dispatch, getState) => {
     try{
         dispatch({
             type:CREATE_USER_REQUEST
@@ -19,8 +25,8 @@ const createUserAction = (email, password) => async(dispatch) => {
 
          const config = {
             headers:{
-                "Content-Type":'Application/json'
-            }
+                "Content-Type":'Application/json',
+                }
          }
     
          const {data} = await axios.post(`${baseUrl}/api/v1/users/register`, {email, password}, config)
@@ -74,5 +80,6 @@ const loginUserAction = (email, password) => async(dispatch) => {
 
 export {
     createUserAction,
-    loginUserAction
+    loginUserAction,
+    logout 
 }
