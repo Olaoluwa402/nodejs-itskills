@@ -8,8 +8,8 @@ router.route('/').get(getPosts).post(protect,createPost);
 //get post
 router.route('/:id')
     .get(getSinglePost) 
-    .put(updatePost)
-    .delete(deletePost);
+    .put(protect,updatePost)
+    .delete(protect,deletePost);
 
 
 //other way of doing same thing

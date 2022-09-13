@@ -6,7 +6,7 @@ const Button = ({style, text, onClick}) => {
     marginTop:'20px',
     borderRadius:'10px', ...style}}>
         {text}
-    </button>
+    </button> 
   )
 }
 

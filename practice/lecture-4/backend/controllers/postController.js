@@ -1,5 +1,5 @@
 import Post from "../models/PostModel.js";
-//get posts
+//get posts 
 const getPosts = async(req,res)=>{
 
     try{
@@ -49,7 +49,7 @@ const createPost = async(req,res)=>{
 const getSinglePost = async(req,res)=>{
     const {id} = req.params
 
-    const post =  posts.find(item=> parseInt(item.id) === parseInt(id))
+    const post =  await Post.findById(id)
     
     res.status(200).json({
         post: post
@@ -61,13 +61,13 @@ const updatePost = async(req,res)=>{
     const {id} = req.params
     const {body,title} = req.body
 
-    const post =  posts.find(item=> parseInt(item.id) === parseInt(id))
+    const post =  Post.findById(id)
     if(!post){
         res.status(400).json({
             msg:'No post found'
         })
     }
-    if(body){
+    if(body){ 
         post.body = body
     }
     if(title){
@@ -82,13 +82,13 @@ const updatePost = async(req,res)=>{
 const deletePost = async(req,res)=>{
     const {id} = req.params
 
-    const post =  posts.find(item=> parseInt(item.id) === parseInt(id))
+    const post =  Post.findOne({_id:id})
     if(!post){
         res.status(400).json({
             msg:'No post found'
         })
     }
-    const filteredPost = await posts.filter((item)=> item.id != post.id)
+    const filteredPost = await post.remove()
 
     res.status(200).json({
         status:'success',

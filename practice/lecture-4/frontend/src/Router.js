@@ -5,6 +5,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import Layout from './components/Layout/Layout/Layout';
 import ContactScreen from './screens/ContactScreen';
+import CreatePostScreen from './screens/PostScreen';
 
 
 const Router = ()=> {
@@ -15,6 +16,7 @@ const Router = ()=> {
             <Route path='/register' element={<Layout><RegisterScreen /></Layout>}/>
             <Route path='/contact' element={<Layout><ContactScreen /></Layout>}/>
             <Route path='/not-found' element={<Layout><NotFoundScreen /></Layout>}/>
+            <Route path='/create-post' element={<Layout><CreatePostScreen /></Layout>}/>
 
             <Route path='*' element={<Navigate to='/not-found'/>}/>
         </Routes>

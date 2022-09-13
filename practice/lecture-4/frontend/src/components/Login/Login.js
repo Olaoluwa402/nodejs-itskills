@@ -25,9 +25,9 @@ const Login = () => {
     useEffect(()=> {
         if(success){ 
             navigate('/')
-            dispatch({
-                type:LOGIN_USER_RESET
-            })
+            // dispatch({
+            //     type:LOGIN_USER_RESET
+            // })
         }
     },[dispatch,success, navigate])
  
