@@ -2,7 +2,6 @@ import dotenv from 'dotenv'
 dotenv.config();
 import express from 'express'
 import cors from 'cors';
-import {posts} from './data.js';
 import morgan from 'morgan';
 const app = express()
 import PostRoute from './routes/postRoute.js'

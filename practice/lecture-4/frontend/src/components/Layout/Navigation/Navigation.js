@@ -1,23 +1,33 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import styles from './Navigation.module.css'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
+import { logout } from '../../../redux/actions/userActions'
 
 const Navigation = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const {userInfo} = useSelector((state) => state.loginUser)
+
+  function logoutHandler(){
+     dispatch(logout())  
+     navigate('/login')
+     window.location.reload()
+  }
   return (
     <div className={styles.navContainer}>
         <Link to='/'>CompanyLogo</Link>
         <ul>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/contact'>Contact</Link></li>
+            <li><Link to='/create-post'>post</Link></li>
              
             {userInfo ? (
                 <li>
                   <span>
                        Dashboard
                       <li><Link to='/dashboard'>Dashboard</Link></li>
-                      <li><span>logout</span></li>
+                      <li><span style={{cursor:'pointer'}} onClick={logoutHandler}>logout</span></li>
                   </span>
                 </li>
                 ): 

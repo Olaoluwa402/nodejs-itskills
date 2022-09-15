@@ -14,10 +14,10 @@ const protect = async (req,res,next)=> {
             req.user = user;
             next()
         }catch(err){
-            console.log(err)
+            console.log(err.message)
             res.status(401).json({
                 status:'failed',
-                error:'Invalid token, Not authorized!'
+                error:err.message
             })
         }
        
@@ -31,4 +31,16 @@ const protect = async (req,res,next)=> {
     }
 }
 
-export {protect}
+//user role authorization
+
+const authorizeUser = (roles)=> {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+          throw new Error( `Role (${req.user.role}) is not allowed to access this resource.`)
+        }
+    
+        next();
+}
+}
+
+export {protect,authorizeUser}

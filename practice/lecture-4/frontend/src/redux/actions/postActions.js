@@ -17,6 +17,8 @@ const createPostAction = (title, body,image) => async(dispatch, getState) => {
 
          const {loginUser:{userInfo}} = getState()
 
+         console.log(userInfo.token)
+
          const config = {
             headers:{
                 "Content-Type":"Application/json",
@@ -33,9 +35,10 @@ const createPostAction = (title, body,image) => async(dispatch, getState) => {
          })
     }catch(err){ 
         let message = err.response && err.response.data.message ? err.response.data.message : err.message
-        
+        console.log(message)
         if(message === 'Invalid token, Not authorized!' || /jwt/.test(message)){
             //dispatch logout
+            console.log('logout')
             dispatch(logout())
         }
         dispatch({

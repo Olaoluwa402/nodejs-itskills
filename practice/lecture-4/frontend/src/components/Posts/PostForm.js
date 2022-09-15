@@ -13,19 +13,35 @@ const PostForm = () => {
 const [state, setState] = useState({
     title:'',
     body:'',
-    image:''
+    image:'',
+    imageBase64Endcode:''
 })
 
-const [errors, setErrors] = ({
-    title:'',
-    body:'',
-    image:''
-})
+// const [errors, setErrors] = ({
+//     title:'',
+//     body:'',
+//     imageBase64Endcode:'',
+//     })
 
     const {loading, error, post} = useSelector((state)=> state.createPost)
 
     const changeHandler= (e)=>{
         const {name, value} = e.target;
+        
+        if(name === 'image'){
+           const reader = new FileReader();
+           const selectedFile = e.target.files[0]
+           console.log('selectedFile',selectedFile)
+               reader.readAsDataURL(selectedFile );
+               reader.onloadend = ()=> {
+                    console.log('base64Url',reader.result)
+                    setState({
+                        ...state,
+                        image:value,
+                        imageBase64Endcode:reader.result
+                    })
+               }
+        }
 
         setState({
             ...state,
@@ -33,33 +49,34 @@ const [errors, setErrors] = ({
         })
     }
 
-    const validate = (title,body,image) => {
-            if(!title){
-                    setErrors({...errors, title:'provide title'})
-                    return
-            }
-            if(!body){
-                setErrors({...errors, title:'provide body'})
-                return
-        }
+    // const validate = (title,body,imageBase64Endcode) => {
+    //         if(!title){
+    //                 setErrors({...errors, title:'provide title'})
+    //                 return
+    //         }
+    //         if(!body){
+    //             setErrors({...errors, title:'provide body'})
+    //             return
+    //     }
 
-        if(!image){
-            setErrors({...errors, title:'provide image'})
-            return
-         }
-    }    
+    //     if(!imageBase64Endcode){
+    //         setErrors({...errors, title:'provide image'})
+    //         return
+    //      }
+    // }    
     const submitHandler= (e)=>{
         e.preventDefault()
-        const {title, body, image, } = state
+        const {title, body, imageBase64Endcode, } = state
         //validation
-         validate(title,body, image)
-      
-        dispatch(createPostAction(title, body, image))
+        //  validate(title,body, imageBase64Endcode)
+         console.log(title, body, imageBase64Endcode)
+        dispatch(createPostAction(title, body, imageBase64Endcode))
 
         setState({
             title:'',
             body:'',
-            image:''
+            image:'',
+            imageBase64Endcode:''
         })
     }
 

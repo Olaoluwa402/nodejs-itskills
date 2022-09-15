@@ -32,7 +32,9 @@ const createPost = async(req,res)=>{
     const {title,body, image} = req.body
     console.log(title,body,image)
   
+    //save the baase64Url to cloudinary and wait fot the returned url
    //save to database
+   
    const post = await Post.create({
       author:req.user._id,
       title,

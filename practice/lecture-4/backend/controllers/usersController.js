@@ -25,14 +25,15 @@ const createUser= async(req,res) => {
         //create use
         const user = await User.create({
             email, 
-            password
+            password,
         })
 
         res.status(200).json({
             status:'success',
             user:{
                 _id:user._id,
-                email:user.email
+                email:user.email,
+                role:user.role,
             }
         })
        
@@ -64,6 +65,7 @@ const loginUser = asyncHandler(async(req,res, next) => {
                 user:{
                     _id:user._id, 
                     email:user.email,
+                    role:user.role,
                     token: await generateToken(user._id)
                 }
             })
