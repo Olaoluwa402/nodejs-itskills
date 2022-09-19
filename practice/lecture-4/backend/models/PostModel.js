@@ -9,6 +9,7 @@ const postSchema = new mongoose.Schema({
     title:{type:String, required:[true, 'title is required']},
     body:{type:String, required:[true, 'password is required']},
     image:{type:String, required:[true, 'image is required']},
+    imageId:{type:String, required:[true, 'image is required']}
 },
 {
     timestamps:true

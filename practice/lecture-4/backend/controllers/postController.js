@@ -1,12 +1,14 @@
 import Post from "../models/PostModel.js";
+import { cloudinary } from "../config/cloudinary.js";
 //get posts 
 const getPosts = async(req,res)=>{
 
-    try{
+    try{ 
+
         const {title, userId} = req.query;
         const copy = await Post.find({}).sort({_id:-1})
     
-        let searchResult = copy;
+        let searchResult = copy; 
     
         if(title){
             searchResult = searchResult.filter((item)=> item.title.startsWith(title))
@@ -16,8 +18,9 @@ const getPosts = async(req,res)=>{
             searchResult = searchResult.filter((item)=> item.userId.toString() === userId)
         }
         res.status(200).json({
-            posts:searchResult
+            posts:searchResult  
         })
+        
     }catch(err){
         res.status(400).json({
             status:'error',
@@ -30,15 +33,16 @@ const getPosts = async(req,res)=>{
 //creaate post
 const createPost = async(req,res)=>{
     const {title,body, image} = req.body
-    console.log(title,body,image)
+    console.log(title,body,image) 
   
     //save the baase64Url to cloudinary and wait fot the returned url
    //save to database
+ 
    
-   const post = await Post.create({
+   const post = await Post.create({ 
       author:req.user._id,
       title,
-      body,
+      body, 
       image,
    })
 
