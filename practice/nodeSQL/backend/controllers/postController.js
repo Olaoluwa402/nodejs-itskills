@@ -1,4 +1,4 @@
-import Post from "../models/PostModel.js";
+// import Post from "../models/PostModel.js";
 import { cloud } from "../config/cloudinary.js";
 //get posts 
 const getPosts = async(req,res)=>{
